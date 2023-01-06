@@ -39,7 +39,7 @@ const config: Configuration = {
             [
               '@babel/preset-env',
               {
-                targets: { browsers: ['last 2 chrome versions'] },
+                // targets: { browsers: ['IE 10'] },
                 debug: isDevelopment,
               },
             ],
@@ -48,8 +48,11 @@ const config: Configuration = {
           ],
           env: {
             development: {
-              plugins: [require.resolve('react-refresh/babel')],
+              plugins: ['@emotion',  require.resolve('react-refresh/babel')],
             },
+            production: {
+              plugins: ['@emotion']
+            }
           },
         },
         exclude: path.join(__dirname, 'node_modules'),
