@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-export default function Login() {
-  return (
-    <div>로그인</div>
-  )
+export default function LogIn() {
+  return <div>로그인</div>;
 }

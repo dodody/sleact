@@ -1,19 +1,33 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Success, Form, Error, Label, Input, LinkContainer, Button, Header } from './styles';
+import useInput from '@hooks/useInput';
 
-export default function Signup() {
-  const [email] = useState('');
-  const [nickname] = useState('');
-  const [password] = useState('');
-  const [passwordCheck] = useState('');
+export default function SignUp() {
+  const [email, onChangeEmail] = useInput('');
+  const [nickname, onChangeNickname] = useInput('');
+  const [password, , setPassword] = useInput('');
+  const [passwordCheck, , setPasswordCheck] = useInput('');
+  const [mismatchError, setMismatchError] = useState(false);
 
+  const onChangePassword = useCallback(
+    (e) => {
+      setPassword(e.target.value);
+      setMismatchError(e.target.value !== passwordCheck);
+    },
+    [passwordCheck],
+  );
+  const onChangePasswordCheck = useCallback(
+    (e) => {
+      setPasswordCheck(e.target.value);
+      setMismatchError(e.target.value !== password);
+    },
+    [password],
+  );
 
-  const onChangeEmail = useCallback(() => { }, []);
-  const onSubmit = useCallback(() => { }, []);
-  const onChangeNickname = useCallback(() => { }, []);
-  const onChangePassword = useCallback(() => {}, []);
-  const onChangePasswordCheck = useCallback(() => { }, []);
+  const onSubmit = useCallback(() => {
+    console.log(email, nickname, password, passwordCheck);
+  }, [email, nickname, password, passwordCheck]);
 
   return (
     <div id="container">
@@ -48,8 +62,9 @@ export default function Signup() {
               onChange={onChangePasswordCheck}
             />
           </div>
-          {/* {mismatchError && <Error>비밀번호가 일치하지 않습니다.</Error>}
+          {mismatchError && <Error>비밀번호가 일치하지 않습니다.</Error>}
           {!nickname && <Error>닉네임을 입력해주세요.</Error>}
+          {/* 
           {signUpError && <Error>{signUpError}</Error>}
           {signUpSuccess && <Success>회원가입되었습니다! 로그인해주세요.</Success>} */}
         </Label>
@@ -60,5 +75,5 @@ export default function Signup() {
         <Link to="/login">로그인 하러가기</Link>
       </LinkContainer>
     </div>
-  )
+  );
 }

@@ -3,17 +3,17 @@ import { Switch, Route, Redirect } from 'react-router';
 import loadable from '@loadable/component';
 
 // 페이지 단위로 코드 스플리팅
-const Login =  loadable(() => import('@pages/Login'));
-const Signup = loadable(() => import('@pages/Signup'));
+const LogIn = loadable(() => import('@pages/LogIn'));
+const SignUp = loadable(() => import('@pages/SignUp'));
 
 const App = () => {
   return (
     <Switch>
-      <Redirect exact path='/' to="/login" />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
+      <Redirect exact path="/" to="/login" />
+      <Route path="/login" component={LogIn} />
+      <Route path="/signup" component={SignUp} />
     </Switch>
-  )
-}
+  );
+};
 
-export default App; 
+export default App;
